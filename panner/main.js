@@ -20,7 +20,8 @@ BGMを再生します。
 
 :param
 stereo=音像定位(パンニング)。例）-1:左 -0.75:左斜め前 0:センター 0.75:右斜め前 1:右
-volume=
+rate=再生速度。例)0.5 ~ 4.0
+volume=再生音量。例）0.0 ~ 1.0
 
 #[end]
 */
@@ -289,7 +290,7 @@ volume=
             // 再生速度指定 0.5 ~ 4.0 はみ出た場合は下限か上限に合わせる
             audio_obj.rate(parseFloat(pm.rate));
 
-            // 再生音量指定
+            // 再生音量指定 0.0 ~ 1.0
             audio_obj.volume(parseFloat(pm.volume));
 
             /*
