@@ -20,6 +20,7 @@ BGMを再生します。
 
 :param
 stereo=音像定位(パンニング)。例）-1:左 -0.75:左斜め前 0:センター 0.75:右斜め前 1:右
+volume=
 
 #[end]
 */
@@ -43,7 +44,9 @@ stereo=音像定位(パンニング)。例）-1:左 -0.75:左斜め前 0:セン�
             click : "false", //音楽再生にクリックが必要か否か
             stop : "false", //trueの場合自動的に次の命令へ移動しない。ロード対策
 
-            stereo: 0 // パニング  -1:左 0:センター 1:右
+            stereo: 0,   // パニング  -1:左 0:センター 1:右
+            rate: 1.0,   // 再生速度 0.5~4.0 で指定。1.0が等速
+            volume: 1.0  // 音量 1:変化なし 0.5:半分
         },
 
         start : function(pm) {
@@ -277,10 +280,21 @@ stereo=音像定位(パンニング)。例）-1:左 -0.75:左斜め前 0:セン�
             }
 
             /*
-             * パニング指定
-             * -1:左 0:センター 1:右
+             * 拡張箇所ここから
              */
+
+            // ステレオパンニング指定 -1:左 0:センター 1:右
             audio_obj.stereo(parseFloat(pm.stereo));
+
+            // 再生速度指定 0.5 ~ 4.0 はみ出た場合は下限か上限に合わせる
+            audio_obj.rate(parseFloat(pm.rate));
+
+            // 再生音量指定
+            audio_obj.volume(parseFloat(pm.volume));
+
+            /*
+             * 拡張箇所ここまで
+             */
 
             audio_obj.once("play",function(){
                 that.kag.layer.showEventLayer();
